@@ -12,14 +12,22 @@ time.sleep(2)
 all_links = driver.find_elements_by_css_selector('.name_link a')
 all_names = driver.find_elements_by_css_selector('.name_link a')
 
+next_page = driver.find_element_by_id('returns_next')
 link_text = []
 links = []
-for n in range(len(all_links)):
-    # time.sleep(1)
-    link = all_links[n].get_attribute('href')
-    links.append(link)
-    name = all_names[n].text
-    link_text.append(name)
+
+for n in range(0, 15):
+    for n in range(len(all_links)):
+        all_links = driver.find_elements_by_css_selector('.name_link a')
+        all_names = driver.find_elements_by_css_selector('.name_link a')
+        link = all_links[n].get_attribute('href')
+        links.append(link)
+        name = all_names[n].text
+        link_text.append(name)
+        next_page = driver.find_element_by_id('returns_next')
+
+    next_page.click()
+    time.sleep(2)
 
 
 print(links)
@@ -32,7 +40,7 @@ dict = {
 }
 df = pd.DataFrame(dict)
 
-df.to_csv('aaron_1.csv')
+df.to_csv('aaron_2.csv')
 
 
 driver.quit()
